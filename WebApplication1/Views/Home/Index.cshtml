@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Home</h2>
+<button id="btnsubmit" class="btn btn-primary mt-4" style="width:20%">Click</button>
+<script type="text/javascript">
+
+    document.getElementById('btnsubmit').addEventListener('cli
+        $.ajax({ ck', () => {
+
+
+            url: "/api/Home/getid",
+           Type: "GET",
+            contentType: "application/json  charset=utf-08",
+            success: () => {
+                              alert('Window');
+            },
+
+            error: () => {
+
+            }
+        });
+    });
+
+</script>
+

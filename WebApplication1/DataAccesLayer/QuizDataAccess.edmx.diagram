@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0a5da1e0459746c6b73ec45e5d16713a" Name="Diagram1">
+        <EntityTypeShape EntityType="masterModel.questionchoice" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterModel.Quiz" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterModel.QuizQuestionmapping" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterModel.quizquestion" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterModel.Quizsubmision" Width="1.5" PointX="6" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="masterModel.FK__questionc__quest__1C1D2798" ManuallyRouted="false" />
+        <AssociationConnector Association="masterModel.FK__QuizQuest__quizI__184C96B4" ManuallyRouted="false" />
+        <AssociationConnector Association="masterModel.FK__Quizsubmi__quizI__1EF99443" ManuallyRouted="false" />
+        <AssociationConnector Association="masterModel.FK__QuizQuest__quest__1940BAED" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

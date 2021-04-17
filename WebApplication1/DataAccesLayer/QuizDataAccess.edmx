@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="masterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="questionchoices">
+          <Key>
+            <PropertyRef Name="choiceid" />
+          </Key>
+          <Property Name="choiceid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questionId" Type="int" />
+          <Property Name="choices" Type="nvarchar(max)" />
+          <Property Name="isanswer" Type="bit" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="updatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="quizId" />
+          </Key>
+          <Property Name="quizId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quizType" Type="nvarchar" MaxLength="150" />
+          <Property Name="Timelimit" Type="int" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="updatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="QuizQuestionmapping">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quizId" Type="int" />
+          <Property Name="questionId" Type="int" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="udatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="quizquestions">
+          <Key>
+            <PropertyRef Name="questionId" />
+          </Key>
+          <Property Name="questionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questions" Type="nvarchar(max)" />
+          <Property Name="questiontype" Type="varchar" MaxLength="150" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="updatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Quizsubmision">
+          <Key>
+            <PropertyRef Name="quizsubmissionid" />
+          </Key>
+          <Property Name="quizsubmissionid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quizId" Type="int" />
+          <Property Name="status" Type="nvarchar" MaxLength="150" />
+          <Property Name="completeAt" Type="datetime" />
+          <Property Name="quizresult" Type="nvarchar" MaxLength="150" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="updatedAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__questionc__quest__1C1D2798">
+          <End Role="quizquestions" Type="Self.quizquestions" Multiplicity="0..1" />
+          <End Role="questionchoices" Type="Self.questionchoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quizquestions">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="questionchoices">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuizQuest__quest__1940BAED">
+          <End Role="quizquestions" Type="Self.quizquestions" Multiplicity="0..1" />
+          <End Role="QuizQuestionmapping" Type="Self.QuizQuestionmapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quizquestions">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="QuizQuestionmapping">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuizQuest__quizI__184C96B4">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="QuizQuestionmapping" Type="Self.QuizQuestionmapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="QuizQuestionmapping">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Quizsubmi__quizI__1EF99443">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="Quizsubmision" Type="Self.Quizsubmision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="Quizsubmision">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="masterModelStoreContainer">
+          <EntitySet Name="questionchoices" EntityType="Self.questionchoices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuizQuestionmapping" EntityType="Self.QuizQuestionmapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quizquestions" EntityType="Self.quizquestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quizsubmision" EntityType="Self.Quizsubmision" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__questionc__quest__1C1D2798" Association="Self.FK__questionc__quest__1C1D2798">
+            <End Role="quizquestions" EntitySet="quizquestions" />
+            <End Role="questionchoices" EntitySet="questionchoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuizQuest__quest__1940BAED" Association="Self.FK__QuizQuest__quest__1940BAED">
+            <End Role="quizquestions" EntitySet="quizquestions" />
+            <End Role="QuizQuestionmapping" EntitySet="QuizQuestionmapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuizQuest__quizI__184C96B4" Association="Self.FK__QuizQuest__quizI__184C96B4">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="QuizQuestionmapping" EntitySet="QuizQuestionmapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Quizsubmi__quizI__1EF99443" Association="Self.FK__Quizsubmi__quizI__1EF99443">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="Quizsubmision" EntitySet="Quizsubmision" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="masterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="questionchoice">
+          <Key>
+            <PropertyRef Name="choiceid" />
+          </Key>
+          <Property Name="choiceid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questionId" Type="Int32" />
+          <Property Name="choices" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isanswer" Type="Boolean" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="quizquestion" Relationship="Self.FK__questionc__quest__1C1D2798" FromRole="questionchoices" ToRole="quizquestions" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="quizId" />
+          </Key>
+          <Property Name="quizId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quizType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Timelimit" Type="Int32" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="QuizQuestionmappings" Relationship="Self.FK__QuizQuest__quizI__184C96B4" FromRole="Quiz" ToRole="QuizQuestionmapping" />
+          <NavigationProperty Name="Quizsubmisions" Relationship="Self.FK__Quizsubmi__quizI__1EF99443" FromRole="Quiz" ToRole="Quizsubmision" />
+        </EntityType>
+        <EntityType Name="QuizQuestionmapping">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quizId" Type="Int32" />
+          <Property Name="questionId" Type="Int32" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="udatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Quiz" Relationship="Self.FK__QuizQuest__quizI__184C96B4" FromRole="QuizQuestionmapping" ToRole="Quiz" />
+          <NavigationProperty Name="quizquestion" Relationship="Self.FK__QuizQuest__quest__1940BAED" FromRole="QuizQuestionmapping" ToRole="quizquestions" />
+        </EntityType>
+        <EntityType Name="quizquestion">
+          <Key>
+            <PropertyRef Name="questionId" />
+          </Key>
+          <Property Name="questionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="questiontype" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="questionchoices" Relationship="Self.FK__questionc__quest__1C1D2798" FromRole="quizquestions" ToRole="questionchoices" />
+          <NavigationProperty Name="QuizQuestionmappings" Relationship="Self.FK__QuizQuest__quest__1940BAED" FromRole="quizquestions" ToRole="QuizQuestionmapping" />
+        </EntityType>
+        <EntityType Name="Quizsubmision">
+          <Key>
+            <PropertyRef Name="quizsubmissionid" />
+          </Key>
+          <Property Name="quizsubmissionid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quizId" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="completeAt" Type="DateTime" Precision="3" />
+          <Property Name="quizresult" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Quiz" Relationship="Self.FK__Quizsubmi__quizI__1EF99443" FromRole="Quizsubmision" ToRole="Quiz" />
+        </EntityType>
+        <Association Name="FK__questionc__quest__1C1D2798">
+          <End Role="quizquestions" Type="Self.quizquestion" Multiplicity="0..1" />
+          <End Role="questionchoices" Type="Self.questionchoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quizquestions">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="questionchoices">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuizQuest__quizI__184C96B4">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="QuizQuestionmapping" Type="Self.QuizQuestionmapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="QuizQuestionmapping">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Quizsubmi__quizI__1EF99443">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="Quizsubmision" Type="Self.Quizsubmision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="Quizsubmision">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuizQuest__quest__1940BAED">
+          <End Role="quizquestions" Type="Self.quizquestion" Multiplicity="0..1" />
+          <End Role="QuizQuestionmapping" Type="Self.QuizQuestionmapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quizquestions">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="QuizQuestionmapping">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="masterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="questionchoices" EntityType="Self.questionchoice" />
+          <EntitySet Name="Quizs" EntityType="Self.Quiz" />
+          <EntitySet Name="QuizQuestionmappings" EntityType="Self.QuizQuestionmapping" />
+          <EntitySet Name="quizquestions" EntityType="Self.quizquestion" />
+          <EntitySet Name="Quizsubmisions" EntityType="Self.Quizsubmision" />
+          <AssociationSet Name="FK__questionc__quest__1C1D2798" Association="Self.FK__questionc__quest__1C1D2798">
+            <End Role="quizquestions" EntitySet="quizquestions" />
+            <End Role="questionchoices" EntitySet="questionchoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuizQuest__quizI__184C96B4" Association="Self.FK__QuizQuest__quizI__184C96B4">
+            <End Role="Quiz" EntitySet="Quizs" />
+            <End Role="QuizQuestionmapping" EntitySet="QuizQuestionmappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Quizsubmi__quizI__1EF99443" Association="Self.FK__Quizsubmi__quizI__1EF99443">
+            <End Role="Quiz" EntitySet="Quizs" />
+            <End Role="Quizsubmision" EntitySet="Quizsubmisions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuizQuest__quest__1940BAED" Association="Self.FK__QuizQuest__quest__1940BAED">
+            <End Role="quizquestions" EntitySet="quizquestions" />
+            <End Role="QuizQuestionmapping" EntitySet="QuizQuestionmappings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="masterModelStoreContainer" CdmEntityContainer="masterEntities">
+          <EntitySetMapping Name="questionchoices">
+            <EntityTypeMapping TypeName="masterModel.questionchoice">
+              <MappingFragment StoreEntitySet="questionchoices">
+                <ScalarProperty Name="choiceid" ColumnName="choiceid" />
+                <ScalarProperty Name="questionId" ColumnName="questionId" />
+                <ScalarProperty Name="choices" ColumnName="choices" />
+                <ScalarProperty Name="isanswer" ColumnName="isanswer" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quizs">
+            <EntityTypeMapping TypeName="masterModel.Quiz">
+              <MappingFragment StoreEntitySet="Quiz">
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
+                <ScalarProperty Name="quizType" ColumnName="quizType" />
+                <ScalarProperty Name="Timelimit" ColumnName="Timelimit" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizQuestionmappings">
+            <EntityTypeMapping TypeName="masterModel.QuizQuestionmapping">
+              <MappingFragment StoreEntitySet="QuizQuestionmapping">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
+                <ScalarProperty Name="questionId" ColumnName="questionId" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="udatedAt" ColumnName="udatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quizquestions">
+            <EntityTypeMapping TypeName="masterModel.quizquestion">
+              <MappingFragment StoreEntitySet="quizquestions">
+                <ScalarProperty Name="questionId" ColumnName="questionId" />
+                <ScalarProperty Name="questions" ColumnName="questions" />
+                <ScalarProperty Name="questiontype" ColumnName="questiontype" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quizsubmisions">
+            <EntityTypeMapping TypeName="masterModel.Quizsubmision">
+              <MappingFragment StoreEntitySet="Quizsubmision">
+                <ScalarProperty Name="quizsubmissionid" ColumnName="quizsubmissionid" />
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="completeAt" ColumnName="completeAt" />
+                <ScalarProperty Name="quizresult" ColumnName="quizresult" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
